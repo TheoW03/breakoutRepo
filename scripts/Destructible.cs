@@ -20,11 +20,17 @@ public class Destructible : MonoBehaviour
     void Update()
     {
         TileBase[] tileArray = destroyTiles.GetTilesBlock(area);
-        Debug.Log(tileArray.Length);
-        if (tileArray.Length == 1)
+        // bool isEmpty =  tileArray.All(x => !x.HasValue);
+        Debug.Log(isEmpty<TileBase>(tileArray));
+        Debug.Log(tileArray.ToString());
+        if (isEmpty<TileBase>(tileArray))
         {
             Debug.Log("you win");
         }
+        // if (tileArray.Length == 1)
+        // {
+        //     Debug.Log("you win");
+        // }
         Text s = scoreText.GetComponent<Text>();
         s.text = "Score: " + score.ToString();
 
@@ -45,5 +51,11 @@ public class Destructible : MonoBehaviour
 
 
         }
+    }
+    bool isEmpty<T>(T[] array)
+    {
+        if (array.Length == 0) return true;
+        foreach (T item in array) if (item != null) return false;
+        return true;
     }
 }

@@ -65,13 +65,14 @@ public class Ball : MonoBehaviour
         {
             Vector2 temp = currentPos;
             temp.x = -5;
-            temp.y = -14;
+            temp.y = -12;
             transform.position = temp;
             lives -= 1;
             Text live = livesText.GetComponent<Text>();
             live.text = "lives: " + lives.ToString();
             left = false;
             right = false;
+            rb.velocity = rb.velocity/3;
             dead = true;
         }
 
@@ -126,7 +127,7 @@ public class Ball : MonoBehaviour
 
         }
 
-        rb.velocity = Vector2.Reflect(lastVelocity * 1.5f, surfaceNormal);
+        rb.velocity = Vector2.Reflect(lastVelocity * 1.6f, surfaceNormal);
 
     }
 }
