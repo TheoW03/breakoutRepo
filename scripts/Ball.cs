@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        transform.Translate(-Vector2.up * 0.5f * Time.deltaTime);
+
     }
 
     // Update is called once per frame
@@ -34,26 +34,42 @@ public class Ball : MonoBehaviour
             right = true;
             left = false;
         }
-        if(currentPos.x + 4.0f > cpR.x ){
+
+        if (currentPos.x + 4.0f > cpR.x)
+        {
             left = true;
             right = false;
         }
         if (left)
         {
-            transform.Translate(Vector2.left * (lastVelocity.magnitude * 1.0f) * Time.deltaTime);
+            right = false;
         }
         if (right)
         {
-            transform.Translate(Vector2.right * (lastVelocity.magnitude * 1.0f) * Time.deltaTime);
+            left = false;
         }
-        if(currentPos.y < (playPos.y)-8.0f){
+        if (!left && !right)
+        {
+            transform.Translate(-Vector2.up * 0.5f * Time.deltaTime);
+            
+        }
+        if (left)
+        {
+            transform.Translate(Vector2.left * (lastVelocity.magnitude * 0.6f) * Time.deltaTime);
+        }
+        if (right)
+        {
+            transform.Translate(Vector2.right * (lastVelocity.magnitude * 0.6f) * Time.deltaTime);
+        }
+        if (currentPos.y < (playPos.y) - 8.0f)
+        {
             Vector2 temp = currentPos;
             temp.x = -5;
             temp.y = -14;
             transform.position = temp;
             lives -= 1;
             Text live = livesText.GetComponent<Text>();
-            live.text = "lives: "+lives.ToString();
+            live.text = "lives: " + lives.ToString();
             left = false;
             right = false;
             dead = true;
@@ -66,21 +82,21 @@ public class Ball : MonoBehaviour
         lastVelocity = rb.velocity;
         if (rb.velocity.magnitude < 4)
         {
-            rb.velocity = rb.velocity * 1.5f;
+            rb.velocity = rb.velocity * 2.0f;
         }
 
     }
     void OnCollisionEnter2D(Collision2D other)
     {
         Vector2 surfaceNormal = other.contacts[0].normal;
-        if (rb.velocity.magnitude > 50)
+        if (rb.velocity.magnitude > 25)
         {
 
-            lastVelocity = rb.velocity / 1.5f;
+            lastVelocity = rb.velocity / 2.0f;
         }
 
         int r = Random.Range(0, 2);
-        if (!left || !right)
+        if (!left && !right)
         {
             if (r >= 1)
             {
@@ -93,16 +109,16 @@ public class Ball : MonoBehaviour
         }
         else
         {
-            if (left)
-            {
-                right = true;
-                left = false;
-            }
-            else
-            {
-                right = false;
-                left = true;
-            }
+            // if (left)
+            // {
+            //     right = true;
+            //     left = false;
+            // }
+            // else
+            // {
+            //     right = false;
+            //     left = true;
+            // }
         }
         if (other.gameObject.name.Contains("sidehit"))
         {
@@ -110,7 +126,7 @@ public class Ball : MonoBehaviour
 
         }
 
-        rb.velocity = Vector2.Reflect(lastVelocity * 1.4f, surfaceNormal);
+        rb.velocity = Vector2.Reflect(lastVelocity * 1.5f, surfaceNormal);
 
     }
 }

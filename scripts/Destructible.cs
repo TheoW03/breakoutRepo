@@ -8,16 +8,20 @@ public class Destructible : MonoBehaviour
     public int score = 0;
     public GameObject scoreText;
     public Tilemap destroyTiles;
+    public BoundsInt area;
     // Start is called before the first frame update
     void Start()
     {
         destroyTiles = GetComponent<Tilemap>();
+        area = destroyTiles.cellBounds;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (destroyTiles == null)
+        TileBase[] tileArray = destroyTiles.GetTilesBlock(area);
+        Debug.Log(tileArray.Length);
+        if (tileArray.Length == 1)
         {
             Debug.Log("you win");
         }
@@ -32,11 +36,12 @@ public class Destructible : MonoBehaviour
         {
             hitPos.x = hit.point.x - 0.01f * hit.normal.x;
             hitPos.y = hit.point.y - 0.01f * hit.normal.y;
-            destroyTiles.SetTile(destroyTiles.WorldToCell(hitPos), null);
-            if (!destroyTiles.GetTile(destroyTiles.WorldToCell(hitPos)))
+            if (destroyTiles.GetTile(destroyTiles.WorldToCell(hitPos)))
             {
                 score++;
             }
+            destroyTiles.SetTile(destroyTiles.WorldToCell(hitPos), null);
+
 
 
         }
