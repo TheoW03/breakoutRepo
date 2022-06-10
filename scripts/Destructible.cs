@@ -17,22 +17,28 @@ public class Destructible : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(destroyTiles == null){
+        if (destroyTiles == null)
+        {
             Debug.Log("you win");
         }
         Text s = scoreText.GetComponent<Text>();
-        s.text = "Score: "+ score.ToString();
-        
+        s.text = "Score: " + score.ToString();
+
     }
-    private void OnCollisionEnter2D(Collision2D other) {
+    private void OnCollisionEnter2D(Collision2D other)
+    {
         Vector3 hitPos = Vector3.zero;
-        foreach(ContactPoint2D hit in other.contacts){
+        foreach (ContactPoint2D hit in other.contacts)
+        {
             hitPos.x = hit.point.x - 0.01f * hit.normal.x;
             hitPos.y = hit.point.y - 0.01f * hit.normal.y;
-            destroyTiles.SetTile(destroyTiles.WorldToCell(hitPos),null);
-            
-            score++;
-            
+            destroyTiles.SetTile(destroyTiles.WorldToCell(hitPos), null);
+            if (!destroyTiles.GetTile(destroyTiles.WorldToCell(hitPos)))
+            {
+                score++;
+            }
+
+
         }
     }
 }

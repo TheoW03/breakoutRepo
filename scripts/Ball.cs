@@ -29,22 +29,22 @@ public class Ball : MonoBehaviour
         Vector2 cpR = Rightside.GetComponent<Transform>().position;
         Vector2 currentPos = rb.position;
         lastVelocity = rb.velocity;
-        if (currentPos.x - 8.0f < cpL.x)
+        if (currentPos.x - 4.0f < cpL.x)
         {
             right = true;
             left = false;
         }
-        if(currentPos.x + 8.0f > cpR.x ){
+        if(currentPos.x + 4.0f > cpR.x ){
             left = true;
             right = false;
         }
         if (left)
         {
-            transform.Translate(Vector2.left * 6.0f * Time.deltaTime);
+            transform.Translate(Vector2.left * (lastVelocity.magnitude * 1.0f) * Time.deltaTime);
         }
         if (right)
         {
-            transform.Translate(Vector2.right * 6.0f * Time.deltaTime);
+            transform.Translate(Vector2.right * (lastVelocity.magnitude * 1.0f) * Time.deltaTime);
         }
         if(currentPos.y < (playPos.y)-8.0f){
             Vector2 temp = currentPos;
@@ -54,6 +54,8 @@ public class Ball : MonoBehaviour
             lives -= 1;
             Text live = livesText.GetComponent<Text>();
             live.text = "lives: "+lives.ToString();
+            left = false;
+            right = false;
             dead = true;
         }
 
@@ -108,7 +110,7 @@ public class Ball : MonoBehaviour
 
         }
 
-        rb.velocity = Vector2.Reflect(lastVelocity * 1.25f, surfaceNormal);
+        rb.velocity = Vector2.Reflect(lastVelocity * 1.4f, surfaceNormal);
 
     }
 }
