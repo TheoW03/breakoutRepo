@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Ball : MonoBehaviour
 {
     public Rigidbody2D rb;
@@ -9,16 +9,22 @@ public class Ball : MonoBehaviour
     public bool left, right;
     public GameObject Rightside;
     public GameObject Leftside2;
+    public GameObject player;
+    public GameObject livesText;
+    private int lives = 3;
+    public static bool dead = false;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-          transform.Translate(-Vector2.up * 0.5f * Time.deltaTime);
+
+        transform.Translate(-Vector2.up * 0.5f * Time.deltaTime);
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector2 playPos = player.GetComponent<Transform>().position;
         Vector2 cpL = Leftside2.GetComponent<Transform>().position;
         Vector2 cpR = Rightside.GetComponent<Transform>().position;
         Vector2 currentPos = rb.position;
@@ -39,6 +45,16 @@ public class Ball : MonoBehaviour
         if (right)
         {
             transform.Translate(Vector2.right * 6.0f * Time.deltaTime);
+        }
+        if(currentPos.y < (playPos.y)-8.0f){
+            Vector2 temp = currentPos;
+            temp.x = -5;
+            temp.y = -14;
+            transform.position = temp;
+            lives -= 1;
+            Text live = livesText.GetComponent<Text>();
+            live.text = "lives: "+lives.ToString();
+            dead = true;
         }
 
 

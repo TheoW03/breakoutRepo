@@ -17,6 +17,14 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 currentPos = rb.position;
+        if (Ball.dead)
+        {
+            Vector2 temp = currentPos;
+            temp.x = -5;
+            transform.position = temp;
+            Ball.dead = false;
+        }
         Vector2 cpL = Leftside2.GetComponent<Transform>().position;
         Vector2 cpR = Rightside.GetComponent<Transform>().position;
         if (Input.GetKey(KeyCode.D))
@@ -27,17 +35,17 @@ public class player : MonoBehaviour
         {
             transform.Translate(-Vector2.right * 0.1f);
         }
-        Vector2 currentPos = rb.position;
+
         if (currentPos.x > cpL.x || currentPos.x < cpR.x)
         {
             Vector2 s = rb.position;
-            if (currentPos.x + 8.0f > cpR.x )
+            if (currentPos.x + 8.0f > cpR.x)
             {
                 s.x -= 1.0f;
                 transform.position = s;
 
             }
-            if (currentPos.x - 8.0f < cpL.x )
+            if (currentPos.x - 8.0f < cpL.x)
             {
                 s.x += 1.0f;
                 transform.position = s;
