@@ -11,8 +11,9 @@ public class Ball : MonoBehaviour
     public GameObject Leftside2;
     public GameObject player;
     public GameObject livesText;
-    private int lives = 3;
+    private static int lives = 3;
     public static bool dead = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,11 +26,7 @@ public class Ball : MonoBehaviour
     void Update()
     {
 
-        if (lives == 0)
-        {
-            Debug.Log("died");
-            return;
-        }
+
         Vector2 playPos = player.GetComponent<Transform>().position;
         Vector2 cpL = Leftside2.GetComponent<Transform>().position;
         Vector2 cpR = Rightside.GetComponent<Transform>().position;
@@ -40,6 +37,9 @@ public class Ball : MonoBehaviour
             right = true;
             left = false;
         }
+        // if(lives == 0){
+        //     lives = 3;
+        // }
 
         if (currentPos.x + 4.0f > cpR.x)
         {
@@ -80,6 +80,7 @@ public class Ball : MonoBehaviour
             right = false;
             rb.velocity = rb.velocity / 3;
             dead = true;
+
         }
 
 
@@ -142,5 +143,9 @@ public class Ball : MonoBehaviour
 
         rb.velocity = Vector2.Reflect(lastVelocity * 1.6f, surfaceNormal);
 
+    }
+    public static bool isAtZero()
+    {
+        return lives < 0;
     }
 }

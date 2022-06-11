@@ -9,7 +9,7 @@ public class Destructible : MonoBehaviour
     public GameObject scoreText;
     public Tilemap destroyTiles;
     public BoundsInt area;
-    public static TileBase[] restoreTiles;
+    public TileBase[] restoreTiles;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +21,10 @@ public class Destructible : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Ball.isAtZero())
+        {
+            resto();
+        }
         TileBase[] tileArray = destroyTiles.GetTilesBlock(area);
         // bool isEmpty =  tileArray.All(x => !x.HasValue);
         Debug.Log(isEmpty<TileBase>(tileArray));
@@ -54,9 +58,24 @@ public class Destructible : MonoBehaviour
 
         }
     }
-    public static void resto(){
-        for(int i = 0; i < restoreTiles.Length;i++){
-            destroyTiles.SetTile(null,restoreTiles[i]);
+    public void resto()
+    {
+        for (int x = 0; x < area.size.x; x++)
+        {
+            for (int y = 0; y < area.size.y; y++)
+            {
+                TileBase tile = restoreTiles[x + y * area.size.x];
+                if (tile != null)
+                {
+                    // Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
+                }
+                else
+                {
+                    Vector3 s = new Vector3(area.size.x,area.size.y,area.size.z);
+
+                    destroyTiles.SetTile(destroyTiles.WorldToCell(s),tile);
+                }
+            }
         }
     }
     bool isEmpty<T>(T[] array)
