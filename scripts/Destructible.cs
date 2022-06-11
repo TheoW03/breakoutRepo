@@ -9,11 +9,13 @@ public class Destructible : MonoBehaviour
     public GameObject scoreText;
     public Tilemap destroyTiles;
     public BoundsInt area;
+    public static TileBase[] restoreTiles;
     // Start is called before the first frame update
     void Start()
     {
         destroyTiles = GetComponent<Tilemap>();
         area = destroyTiles.cellBounds;
+        restoreTiles = destroyTiles.GetTilesBlock(area);
     }
 
     // Update is called once per frame
@@ -50,6 +52,11 @@ public class Destructible : MonoBehaviour
 
 
 
+        }
+    }
+    public static void resto(){
+        for(int i = 0; i < restoreTiles.Length;i++){
+            destroyTiles.SetTile(null,restoreTiles[i]);
         }
     }
     bool isEmpty<T>(T[] array)

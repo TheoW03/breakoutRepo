@@ -24,6 +24,12 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (lives == 0)
+        {
+            Debug.Log("died");
+            return;
+        }
         Vector2 playPos = player.GetComponent<Transform>().position;
         Vector2 cpL = Leftside2.GetComponent<Transform>().position;
         Vector2 cpR = Rightside.GetComponent<Transform>().position;
@@ -51,7 +57,7 @@ public class Ball : MonoBehaviour
         if (!left && !right)
         {
             transform.Translate(-Vector2.up * 0.5f * Time.deltaTime);
-            
+
         }
         if (left)
         {
@@ -72,9 +78,10 @@ public class Ball : MonoBehaviour
             live.text = "lives: " + lives.ToString();
             left = false;
             right = false;
-            rb.velocity = rb.velocity/3;
+            rb.velocity = rb.velocity / 3;
             dead = true;
         }
+
 
 
     }
@@ -97,6 +104,7 @@ public class Ball : MonoBehaviour
         }
 
         int r = Random.Range(0, 2);
+
         if (!left && !right)
         {
             if (r >= 1)
@@ -110,16 +118,21 @@ public class Ball : MonoBehaviour
         }
         else
         {
-            // if (left)
-            // {
-            //     right = true;
-            //     left = false;
-            // }
-            // else
-            // {
-            //     right = false;
-            //     left = true;
-            // }
+            int s = Random.Range(0, 4);
+            if (s >= 2)
+            {
+                if (left)
+                {
+                    right = true;
+                    left = false;
+                }
+                else
+                {
+                    right = false;
+                    left = true;
+                }
+            }
+
         }
         if (other.gameObject.name.Contains("sidehit"))
         {
