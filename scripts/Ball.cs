@@ -148,4 +148,7 @@ public class Ball : MonoBehaviour
     {
         return lives < 0;
     }
+    public static void reset(){
+        lives = 3;
+    }
 }

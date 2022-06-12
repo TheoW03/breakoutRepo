@@ -10,6 +10,9 @@ public class Destructible : MonoBehaviour
     public Tilemap destroyTiles;
     public BoundsInt area;
     public TileBase[] restoreTiles;
+    public List<Tile> restorTiles = new List<Tile>();
+    public List<Vector3> locationOf = new List<Vector3>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,7 @@ public class Destructible : MonoBehaviour
         if (Ball.isAtZero())
         {
             resto();
+            Ball.reset();
         }
         TileBase[] tileArray = destroyTiles.GetTilesBlock(area);
         // bool isEmpty =  tileArray.All(x => !x.HasValue);
@@ -50,9 +54,12 @@ public class Destructible : MonoBehaviour
             hitPos.y = hit.point.y - 0.01f * hit.normal.y;
             if (destroyTiles.GetTile(destroyTiles.WorldToCell(hitPos)))
             {
+                restorTiles.Add(destroyTiles.GetTile<Tile>(destroyTiles.WorldToCell(hitPos)));
+                locationOf.Add(hitPos);
+                destroyTiles.SetTile(destroyTiles.WorldToCell(hitPos), null);
                 score++;
             }
-            destroyTiles.SetTile(destroyTiles.WorldToCell(hitPos), null);
+
 
 
 
@@ -60,23 +67,29 @@ public class Destructible : MonoBehaviour
     }
     public void resto()
     {
-        for (int x = 0; x < area.size.x; x++)
+        for (int i = 0; i < restorTiles.Count; i++)
         {
-            for (int y = 0; y < area.size.y; y++)
-            {
-                TileBase tile = restoreTiles[x + y * area.size.x];
-                if (tile != null)
-                {
-                    // Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
-                }
-                else
-                {
-                    Vector3 s = new Vector3(area.size.x,area.size.y,area.size.z);
-
-                    destroyTiles.SetTile(destroyTiles.WorldToCell(s),tile);
-                }
-            }
+            destroyTiles.SetTile(destroyTiles.WorldToCell(locationOf[i]), restorTiles[i]);
         }
+        restorTiles = new List<Tile>();
+        locationOf = new List<Vector3>();
+        // for (int x = 0; x < area.size.x; x++)
+        // {
+        //     for (int y = 0; y < area.size.y; y++)
+        //     {
+        //         TileBase tile = restoreTiles[x + y * area.size.x];
+        //         if (tile != null)
+        //         {
+        //             // Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
+        //         }
+        //         else
+        //         {
+        //             Vector3 s = new Vector3(area.size.x,area.size.y,area.size.z);
+
+        //             destroyTiles.SetTile(destroyTiles.WorldToCell(s),tile);
+        //         }
+        //     }
+        // }
     }
     bool isEmpty<T>(T[] array)
     {
