@@ -18,12 +18,13 @@ public class Destructible : MonoBehaviour
     {
         destroyTiles = GetComponent<Tilemap>();
         area = destroyTiles.cellBounds;
-        restoreTiles = destroyTiles.GetTilesBlock(area);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        restoreTiles = destroyTiles.GetTilesBlock(area);
         if (Ball.isAtZero())
         {
             resto();
@@ -36,10 +37,14 @@ public class Destructible : MonoBehaviour
         // {
         //     Debug.Log("you win");
         // }
-        if (isEmpty())
-        {
+        if(locationOf.Count >= 92){
             Debug.Log("you win");
         }
+        Debug.Log(restoreTiles.Length);
+        // if (!isEmpty())
+        // {
+        //     Debug.Log("you win");
+        // }
         // if (tileArray.Length == 1)
         // {
         //     Debug.Log("you win");
@@ -76,38 +81,24 @@ public class Destructible : MonoBehaviour
         }
         restorTiles = new List<Tile>();
         locationOf = new List<Vector3>();
-        // for (int x = 0; x < area.size.x; x++)
-        // {
-        //     for (int y = 0; y < area.size.y; y++)
-        //     {
-        //         TileBase tile = restoreTiles[x + y * area.size.x];
-        //         if (tile != null)
-        //         {
-        //             // Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
-        //         }
-        //         else
-        //         {
-        //             Vector3 s = new Vector3(area.size.x,area.size.y,area.size.z);
 
-        //             destroyTiles.SetTile(destroyTiles.WorldToCell(s),tile);
-        //         }
-        //     }
-        // }
     }
-    bool isEmpty()
-    {
-        if(locationOf.Count == 0){
-            return false;
-        }
-        for (int i = 0; i < locationOf.Count; i++)
-        {
-            if (destroyTiles.GetTile(destroyTiles.WorldToCell(locationOf[i])))
-            {
-                return false;
-            }
+    // bool isEmpty()
+    // {
+    //     // if (locationOf.Count == 0)
+    //     // {
+    //     //     return false;
+    //     // }
+    //     foreach (var position in destroyTiles.cellBounds.allPositionsWithin)
+    //     {
+    //         if (destroyTiles.HasTile(position))
+    //         {
+    //             return true;
+    //         }
 
-        }
-        return true;
-    }
+    //         // Tile is not empty; do stuff
+    //     }
+    //     return false;
+    // }
 
 }
