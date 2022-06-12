@@ -27,13 +27,16 @@ public class Destructible : MonoBehaviour
         if (Ball.isAtZero())
         {
             resto();
+            score = 0;
             Ball.reset();
         }
         TileBase[] tileArray = destroyTiles.GetTilesBlock(area);
         // bool isEmpty =  tileArray.All(x => !x.HasValue);
-        Debug.Log(isEmpty<TileBase>(tileArray));
-        Debug.Log(tileArray.ToString());
-        if (isEmpty<TileBase>(tileArray))
+        // if (isEmpty<TileBase>(tileArray))
+        // {
+        //     Debug.Log("you win");
+        // }
+        if (isEmpty())
         {
             Debug.Log("you win");
         }
@@ -91,10 +94,20 @@ public class Destructible : MonoBehaviour
         //     }
         // }
     }
-    bool isEmpty<T>(T[] array)
+    bool isEmpty()
     {
-        if (array.Length == 0) return true;
-        foreach (T item in array) if (item != null) return false;
+        if(locationOf.Count == 0){
+            return false;
+        }
+        for (int i = 0; i < locationOf.Count; i++)
+        {
+            if (destroyTiles.GetTile(destroyTiles.WorldToCell(locationOf[i])))
+            {
+                return false;
+            }
+
+        }
         return true;
     }
+
 }

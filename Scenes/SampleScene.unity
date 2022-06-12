@@ -711,7 +711,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970108881}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.9, y: -12, z: 0}
+  m_LocalPosition: {x: -4.4, y: -19.2, z: 0}
   m_LocalScale: {x: 2.4659574, y: 2.3433206, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -919,7 +919,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859133972}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.8638, y: -34.5, z: 0}
+  m_LocalPosition: {x: -3.7395, y: -34.5, z: 0}
   m_LocalScale: {x: 18.88686, y: 2.0241728, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2217,6 +2217,9 @@ MonoBehaviour:
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
+  restoreTiles: []
+  restorTiles: []
+  locationOf: []
 --- !u!19719996 &2096573949
 TilemapCollider2D:
   m_ObjectHideFlags: 0

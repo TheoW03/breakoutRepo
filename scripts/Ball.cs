@@ -25,6 +25,11 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (lives == 3)
+        {
+            Text live = livesText.GetComponent<Text>();
+            live.text = "lives: " + lives.ToString();
+        }
 
 
         Vector2 playPos = player.GetComponent<Transform>().position;
@@ -76,6 +81,7 @@ public class Ball : MonoBehaviour
             lives -= 1;
             Text live = livesText.GetComponent<Text>();
             live.text = "lives: " + lives.ToString();
+
             left = false;
             right = false;
             rb.velocity = rb.velocity / 3;
@@ -148,7 +154,9 @@ public class Ball : MonoBehaviour
     {
         return lives < 0;
     }
-    public static void reset(){
+    public static void reset()
+    {
         lives = 3;
+
     }
 }
