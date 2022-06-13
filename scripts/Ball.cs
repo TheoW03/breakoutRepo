@@ -112,7 +112,7 @@ public class Ball : MonoBehaviour
         if (rb.velocity.magnitude > 25)
         {
 
-            lastVelocity = rb.velocity / 2.0f;
+            lastVelocity = rb.velocity / 1.5f;
         }
 
         int r = Random.Range(0, 2);
@@ -152,7 +152,7 @@ public class Ball : MonoBehaviour
 
         }
 
-        rb.velocity = Vector2.Reflect(lastVelocity * 1.6f, surfaceNormal);
+        rb.velocity = Vector2.Reflect(lastVelocity * 1.9f, surfaceNormal);
 
     }
     public static bool isAtZero()

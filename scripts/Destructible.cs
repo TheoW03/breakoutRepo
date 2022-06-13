@@ -20,7 +20,7 @@ public class Destructible : MonoBehaviour
     void Start()
     {
         youWinPanel.SetActive(false);
-        deadPanel.SetActive(false);
+        // deadPanel.SetActive(false);
         destroyTiles = GetComponent<Tilemap>();
         area = destroyTiles.cellBounds;
 
@@ -30,6 +30,20 @@ public class Destructible : MonoBehaviour
     void Update()
     {
         restoreTiles = destroyTiles.GetTilesBlock(area);
+        if (locationOf.Count >= 92)
+        {
+            win = true;
+            youWinPanel.SetActive(true);
+            if (ButtonActions.restoreGame)
+            {
+                resto();
+                score = 0;
+                Ball.reset();
+                youWinPanel.SetActive(false);
+                ButtonActions.restoreGame = false;
+            }
+            return;
+        }
         if (Ball.isAtZero())
         {
             deadPanel.SetActive(true);
@@ -52,11 +66,7 @@ public class Destructible : MonoBehaviour
         // {
         //     Debug.Log("you win");
         // }
-        if (locationOf.Count >= 92)
-        {
-            Debug.Log("you win");
-        }
-        Debug.Log(restoreTiles.Length);
+
         // if (!isEmpty())
         // {
         //     Debug.Log("you win");
