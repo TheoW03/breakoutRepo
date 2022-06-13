@@ -18,6 +18,9 @@ public class player : MonoBehaviour
     void Update()
     {
         Vector2 currentPos = rb.position;
+        // if(Ball.isAtZero()){
+        //     return;
+        // }
         if (Ball.dead)
         {
             Vector2 temp = currentPos;
@@ -27,11 +30,11 @@ public class player : MonoBehaviour
         }
         Vector2 cpL = Leftside2.GetComponent<Transform>().position;
         Vector2 cpR = Rightside.GetComponent<Transform>().position;
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             transform.Translate(Vector2.right * 0.1f);
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.LeftArrow))
         {
             transform.Translate(-Vector2.right * 0.1f);
         }

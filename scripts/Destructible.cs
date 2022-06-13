@@ -12,10 +12,15 @@ public class Destructible : MonoBehaviour
     public TileBase[] restoreTiles;
     public List<Tile> restorTiles = new List<Tile>();
     public List<Vector3> locationOf = new List<Vector3>();
+    public GameObject deadPanel;
+    public GameObject youWinPanel;
+    public static bool win = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        youWinPanel.SetActive(false);
+        deadPanel.SetActive(false);
         destroyTiles = GetComponent<Tilemap>();
         area = destroyTiles.cellBounds;
 
@@ -27,9 +32,19 @@ public class Destructible : MonoBehaviour
         restoreTiles = destroyTiles.GetTilesBlock(area);
         if (Ball.isAtZero())
         {
-            resto();
-            score = 0;
-            Ball.reset();
+            deadPanel.SetActive(true);
+            Text t = GameObject.Find("ScoreText").GetComponent<Text>();
+            t.text = "Score: " + score.ToString();
+            if (ButtonActions.restoreGame)
+            {
+                resto();
+                score = 0;
+                Ball.reset();
+                deadPanel.SetActive(false);
+                ButtonActions.restoreGame = false;
+            }
+            return;
+
         }
         TileBase[] tileArray = destroyTiles.GetTilesBlock(area);
         // bool isEmpty =  tileArray.All(x => !x.HasValue);
@@ -37,7 +52,8 @@ public class Destructible : MonoBehaviour
         // {
         //     Debug.Log("you win");
         // }
-        if(locationOf.Count >= 92){
+        if (locationOf.Count >= 92)
+        {
             Debug.Log("you win");
         }
         Debug.Log(restoreTiles.Length);

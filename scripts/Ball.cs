@@ -25,6 +25,10 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isAtZero() || Destructible.win){
+            rb.velocity = rb.velocity * 0;
+            return;
+        }
         if (lives == 3)
         {
             Text live = livesText.GetComponent<Text>();
@@ -88,6 +92,7 @@ public class Ball : MonoBehaviour
             dead = true;
 
         }
+        
 
 
 
@@ -156,6 +161,7 @@ public class Ball : MonoBehaviour
     }
     public static void reset()
     {
+        Destructible.win = false;
         lives = 3;
 
     }
