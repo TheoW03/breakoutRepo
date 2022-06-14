@@ -23,6 +23,10 @@ public class ButtonActions : MonoBehaviour
     {
         restoreGame = true;
     }
+    public void goBack()
+    {
+        SceneManager.LoadScene("mainmenu");
+    }
 
 
 }
