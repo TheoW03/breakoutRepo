@@ -25,6 +25,9 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(playerScript.onPaused){
+            Time.timeScale = 0;
+        }
         if(isAtZero() || Destructible.win){
             rb.velocity = rb.velocity * 0;
             return;

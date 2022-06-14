@@ -1,22 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class player : MonoBehaviour
+using UnityEngine.UI;
+public class playerScript : MonoBehaviour
 {
     public Rigidbody2D rb;
     public GameObject Rightside;
     public GameObject Leftside2;
+    public GameObject pauseGame;
+    public static bool onPaused = false;
     // Start is called before the first frame update
     void Start()
     {
-
+        pauseGame.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape) && onPaused)
+        {
+            pauseGame.SetActive(false);
+            onPaused = false;
+            Time.timeScale = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && !onPaused)
+        {
+            pauseGame.SetActive(true);
+            onPaused = true;
+            Time.timeScale = 0;
+        }
+
         Vector2 currentPos = rb.position;
         // if(Ball.isAtZero()){
         //     return;
@@ -30,14 +45,19 @@ public class player : MonoBehaviour
         }
         Vector2 cpL = Leftside2.GetComponent<Transform>().position;
         Vector2 cpR = Rightside.GetComponent<Transform>().position;
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (!onPaused)
         {
-            transform.Translate(Vector2.right * 0.1f);
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Translate(Vector2.right * 0.1f);
+            }
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Translate(-Vector2.right * 0.1f);
+            }
         }
-        if (Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Translate(-Vector2.right * 0.1f);
-        }
+
+
 
         if (currentPos.x > cpL.x || currentPos.x < cpR.x)
         {
