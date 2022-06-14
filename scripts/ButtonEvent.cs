@@ -18,4 +18,5 @@ public class ButtonEvent : MonoBehaviour
         button1.GetComponent<Text>().color = Color.white;
         button1.GetComponent<Text>().text = s;
     }
+
 }
