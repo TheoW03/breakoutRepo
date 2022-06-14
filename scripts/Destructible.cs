@@ -20,7 +20,7 @@ public class Destructible : MonoBehaviour
     void Start()
     {
         youWinPanel.SetActive(false);
-        // deadPanel.SetActive(false);
+        deadPanel.SetActive(false);
         destroyTiles = GetComponent<Tilemap>();
         area = destroyTiles.cellBounds;
 
