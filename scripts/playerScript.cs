@@ -53,11 +53,11 @@ public class playerScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
-                transform.Translate(Vector2.right * 0.1f);
+                transform.Translate(Vector2.right * 1.0f);
             }
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.Translate(-Vector2.right * 0.1f);
+                transform.Translate(-Vector2.right * 1.0f);
             }
         }
 

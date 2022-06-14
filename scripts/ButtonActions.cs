@@ -29,6 +29,8 @@ public class ButtonActions : MonoBehaviour
     public void goBack()
     {
         SceneManager.LoadScene("mainmenu");
+        playerScript.onPaused = false;
+        restoreGame = true;
     }
     public void resumeGame()
     {
