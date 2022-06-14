@@ -27,6 +27,8 @@ public class Ball : MonoBehaviour
     {
         if(playerScript.onPaused){
             Time.timeScale = 0;
+        }else{
+            Time.timeScale = 1;
         }
         if(isAtZero() || Destructible.win){
             rb.velocity = rb.velocity * 0;

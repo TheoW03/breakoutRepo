@@ -17,6 +17,7 @@ public class ButtonActions : MonoBehaviour
     public GameObject button4;
     private Vector2 buttonPos4;
     public static bool restoreGame = false;
+    public GameObject pauseMenu;
 
 
 
@@ -28,6 +29,11 @@ public class ButtonActions : MonoBehaviour
     public void goBack()
     {
         SceneManager.LoadScene("mainmenu");
+    }
+    public void resumeGame()
+    {
+        playerScript.onPaused = false;
+        pauseMenu.SetActive(false);
     }
 
 

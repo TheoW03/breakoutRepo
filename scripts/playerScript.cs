@@ -31,7 +31,11 @@ public class playerScript : MonoBehaviour
             onPaused = true;
             Time.timeScale = 0;
         }
-
+        if(!onPaused){
+            pauseGame.SetActive(false);
+            onPaused = false;
+            Time.timeScale = 1;
+        }
         Vector2 currentPos = rb.position;
         // if(Ball.isAtZero()){
         //     return;
