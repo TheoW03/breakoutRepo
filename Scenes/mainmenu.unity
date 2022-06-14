@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 1213246714}
   - component: {fileID: 1213246713}
   m_Layer: 0
-  m_Name: pixil-frame-0 (29)
+  m_Name: logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
